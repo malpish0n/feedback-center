@@ -1,0 +1,14 @@
+# Symfony
+/vendor
+/.env
+/.env.local
+/.idea
+/node_modules
+/public/bundles/
+/var/
+/docker/db/data/
+
+*.log
+*.sql
+*.sqlite
+.DS_Store
