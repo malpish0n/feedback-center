@@ -9,7 +9,7 @@ class BlogController extends AbstractController
     #[Route('/main-page',name:'main_page')]
     public function mainPage(): Response
     {
-        $articles = $this->articlesRepository->findAll();
-        return new Response('To jest strona glowna');
+        $articles = $this->articleRepository->findAll();
+        return new Response(print_r($articles,true));
     }
 }
