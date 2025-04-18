@@ -20,6 +20,7 @@ class BlogController extends AbstractController
     public function mainPage(): Response
     {
         $articles = $this->articleRepository->findAll();
+        dump($articles);
         return new Response(print_r($articles,true));
     }
 }
