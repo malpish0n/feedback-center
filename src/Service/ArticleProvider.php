@@ -11,7 +11,7 @@ class ArticleProvider
         $transformedData = [];
         foreach ($articles as $article) {
             $transformedData['articles'][] = [
-                'tile' => $article->getTitle(),
+                'title' => $article->getTitle(),
                 'link' => 'article/' . $article->getId(),
             ];
         }
