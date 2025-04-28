@@ -25,16 +25,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libpq-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN set -eux; \
+RUN set -eux \
 	install-php-extensions \
 		@composer \
 		apcu \
 		intl \
 		opcache \
 		zip \
-		pdo_pgsql \
 		xml
-	;
+	
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
