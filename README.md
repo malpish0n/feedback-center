@@ -1,23 +1,24 @@
-📦 FeedbackCenter
+# 📦 FeedbackCenter
 
-FeedbackCenter is a simple web application built with Symfony 7, designed for collecting feedback and suggestions — especially in gamedev projects. It uses PostgreSQL as the database and Adminer for easy data inspection.
+A simple Symfony 7 application for collecting feedback and suggestions within a game development studio.
 
-🔧 Technologies used:
+## 📚 Technologies
 
-    Symfony 7 (PHP)
+- PHP 8.3
+- Symfony 7
+- Docker & Docker Compose
+- PostgreSQL
+- Adminer
+- JWT Authentication (LexikJWTAuthenticationBundle)
 
-    PostgreSQL
+## 🚀 Features
 
-    Docker + Docker Compose
+- ✅ JWT-based login system (`POST /api/login_check`)
+- ✅ API endpoint to fetch currently logged-in user (`GET /api/users/show`)
+- ✅ Feedback submission system (WIP)
+- ✅ Adminer for database inspection
+- ✅ Dockerized setup for easy deployment
 
-    LexikJWTAuthenticationBundle (JWT-based login)
+---
 
-    Adminer (Database UI)
-
-🔐 Current features:
-
-    Manual user creation (via Adminer or CLI)
-
-    JWT login endpoint
-
-    Endpoint to fetch data about the currently logged-in user
+🛠 Work in progress – more features coming soon.
