@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Article;
+use App\Entity\Feedback;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -10,12 +10,12 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $article = new Article();
+        $feedback = new Feedback();
+        $feedback->setTitle('Pomysł 1');
+        $feedback->setContent('Opis');
 
-        $article->setTitle('Tytul');
-        
-        $manager->persist($article);
-
+        $manager->persist($feedback);
         $manager->flush();
+
     }
 }
