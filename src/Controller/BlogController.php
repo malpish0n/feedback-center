@@ -1,33 +1,32 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Controller;
-use App\Repository\ArticleRepository;
+
+use App\Repository\FeedbackRepository;
+use App\Service\FeedbackProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Service\ArticleProvider;
-
 
 class BlogController extends AbstractController
 {
-
     public function __construct(
-        private ArticleRepository $articleRepository,
-        private ArticleProvider $articleProvider
-    )
-    {  
+        private FeedbackRepository $feedbackRepository,
+        private FeedbackProvider $feedbackProvider
+    ) {
     }
 
-
-    #[Route('/articles',name:'blog-articles')]
-    public function showArticles(): Response
+    #[Route('/feedback', name: 'blog-feedback')]
+    public function showFeedback(): Response
     {
-        $articles = $this->articleRepository->findAll();
+        $feedback = $this->feedbackRepository->findAll();
         $parameters = [];
-        if ($articles) {
-            $parameters = $this->articleProvider->transformDataForTwig($articles);
+
+        if ($feedback) {
+            $parameters = $this->feedbackProvider->transformDataForTwig($feedback);
         }
-        return $this->render('articles/articles.html.twig', $parameters);
+
+        return $this->render('feedback/feedback.html.twig', $parameters);
     }
 }
-
