@@ -78,16 +78,10 @@ class HomePageController extends AbstractController
 
     }
 
-    #[Route('/users/{id}', name: 'app_user_show')]
-    public function showUser(int $id)
+    #[Route('/users', name: 'create_user', methods: ['POST'])]
+    public function createUser(Request $request): Response
     {
-
-    }
-
-    #[Route('/users', name: 'create_user')]
-    public function createUser(): Response
-    {
-
+        dd(request->request->all());
     }
 
     #[Route('/users', name: 'update_user')]
@@ -98,6 +92,11 @@ class HomePageController extends AbstractController
 
     #[Route('/users', name: 'delete_user')]
     public function deleteUser(int $id): JsonResponse
+    {
+
+    }
+    #[Route('/users/{id}', name: 'app_user_show')]
+    public function showUser(int $id)
     {
 
     }
