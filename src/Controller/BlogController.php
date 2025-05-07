@@ -28,5 +28,5 @@ class BlogController extends AbstractController
         }
 
         return $this->render('feedback/feedback.html.twig', $parameters);
-    }ss
+    }
 }
