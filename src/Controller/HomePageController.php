@@ -72,6 +72,35 @@ class HomePageController extends AbstractController
         return $this->redirectToRoute('app_home_page');
     }
 
+    #[Route('/users', name: 'app_user')]
+    public function listUsers(): Response
+    {
+
+    }
+
+    #[Route('/users/{id}', name: 'app_user_show')]
+    public function showUser(int $id)
+    {
+
+    }
+
+    #[Route('/users', name: 'create_user')]
+    public function createUser(): Response
+    {
+
+    }
+
+    #[Route('/users', name: 'update_user')]
+    public function updateUser(int $id): JsonResponse
+    {
+
+    }
+
+    #[Route('/users', name: 'delete_user')]
+    public function deleteUser(int $id): JsonResponse
+    {
+
+    }
 }
 
 
