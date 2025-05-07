@@ -21,4 +21,35 @@ class UserController extends AbstractController
             ])
             ->getResponse();
     }
+
+    #[Route('/users', name: 'app_user')]
+    public function index(): Response
+    {
+
+    }
+
+    #[Route('/users/{id}', name: 'app_user_show')]
+    public function show(int $id)
+    {
+
+    }
+
+    #[Route('/users', name: 'create_user', methods: ['POST'])]
+    public function createUser(Request $request): Response
+    {
+        dd(request->request->all());
+    }
+
+    #[Route('/users', name: 'update_user')]
+    public function updateUser(int $id): JsonResponse
+    {
+
+    }
+
+    #[Route('/users', name: 'delete_user')]
+    public function deleteUser(int $id): JsonResponse
+    {
+
+    }
+
 }
