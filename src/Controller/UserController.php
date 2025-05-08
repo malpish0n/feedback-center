@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 class UserController extends AbstractController
@@ -62,10 +64,19 @@ class UserController extends AbstractController
 
     }
 
-    #[Route('/users', name: 'delete_user')]
-    public function deleteUser(int $id): JsonResponse
+    #[Route('/users/{id}', name: 'delete_user', methods: ['DELETE'])]
+    public function deleteUser(int $id, UserRepository $userRepository, EntityManagerInterface $em): JsonResponse
     {
-
+        $user = $userRepository->find($id);
+    
+        if (!$user) {
+            return new JsonResponse(['error' => 'User not found'], 404);
+        }
+    
+        $em->remove($user);
+        $em->flush();
+    
+        return new JsonResponse(['status' => 'User deleted'], 200); // <-- TO BYŁO WYMAGANE
     }
 
 }
