@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 
@@ -58,11 +59,38 @@ class UserController extends AbstractController
     return new JsonResponse(['status' => 'User created'], 201);
     }
 
-    #[Route('/users', name: 'update_user')]
-    public function updateUser(int $id): JsonResponse
-    {
+    #[Route('/users/{id}', name: 'update_user', methods: ['PUT'])]
+    public function updateUser(int $id,
+    Request $request,
+    UserRepository $userRepository,
+    EntityManagerInterface $em,
+    UserPasswordHasherInterface $passwordHasher
+    ): JsonResponse {
+    $user = $userRepository->find($id);
+    dd($user);
+    
+    if (!$user) {
+        return new JsonResponse(['error' => 'User not found'], 404);
+    }
+
+    $data = json_decode($request->getContent(), true);
+
+    if (isset($data['email'])) {
+        $user->setEmail($data['email']);
+    }
+
+    if (isset($data['password'])) {
+        $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
+        $user->setPassword($hashedPassword);
+    }
+
+    $em->flush();
+    dd('reached');
+    return new JsonResponse(['status' => 'User updated'], 200);
 
     }
+
+
 
     #[Route('/users/{id}', name: 'delete_user', methods: ['DELETE'])]
     public function deleteUser(int $id, UserRepository $userRepository, EntityManagerInterface $em): JsonResponse
