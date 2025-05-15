@@ -13,7 +13,7 @@ A simple Symfony 7 application for collecting feedback and suggestions within a 
 
 ## 🚀 Features
 
-- ✅ JWT-based login system (`POST /api/login_check`)
+- ✅ JWT-based login syste (`POST /api/login_check`)
 - ✅ API endpoint to fetch currently logged-in user (`GET /api/users/show`)
 - ✅ Feedback submission system (WIP)
 - ✅ Adminer for database inspection
