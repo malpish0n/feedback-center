@@ -44,7 +44,7 @@ class UserController extends AbstractController
     #[Route('/users/create', name: 'create_user', methods: ['POST'])]
     public function createUser(Request $request, UserService $userService): JsonResponse
     {
-    $data = json_decode($request->getContent(), true);
+    $data = jon_decode($request->getContent(), true);
 
     if (!isset($data['email'], $data['password'])) {
         return new JsonResponse(['error' => 'Missing fields'], 400);
