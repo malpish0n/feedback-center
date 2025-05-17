@@ -24,7 +24,7 @@ class BlogController extends AbstractController
         $parameters = [];
 
         if ($feedback) {
-            $parameters = $this->feedbackProvider->trnsformDataForTwig($feedback);
+            $parameters = $this->feedbackProvider->transformDataForTwig($feedback);
         }
 
         return $this->render('feedback/feedback.html.twig', $parameters);
