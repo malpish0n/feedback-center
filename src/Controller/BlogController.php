@@ -18,7 +18,7 @@ class BlogController extends AbstractController
     }
 
     #[Route('/feedback', name: 'blog-feedback')]
-    public funtion showFeedback(): Response
+    public function showFeedback(): Response
     {
         $feedback = $this->feedbackRepository->findAll();
         $parameters = [];
