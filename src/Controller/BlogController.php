@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class BlogController extends AbstractController
-{s
+{
     public function __construct(
         private FeedbackRepository $feedbackRepository,
         private FeedbackProvider $feedbackProvider
