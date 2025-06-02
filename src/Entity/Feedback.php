@@ -19,7 +19,7 @@ class Feedback
     #[ORM\Column(length: 255)]
     private ?string $content = null;
 
-    public function gsetId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
