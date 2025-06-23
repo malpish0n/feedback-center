@@ -1,25 +1,79 @@
-<h1>Home Page Content</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <style>
+        body {
+            background-color: #171717;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tytuł</th>
-            <th>Treść</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.content }}</td>
-                <td>
-                    <a href="{{ path('home_page_edit', { id: item.id }) }}">Edytuj</a> |
-                    <a href="{{ path('home_page_delete', { id: item.id }) }}">Usuń</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* logo z lewej, linki z prawej */
+            align-items: center;
+        }
+
+        /* Logo po lewej */
+        .logo {
+            color: #00bcd4; /* cyan */
+            font-weight: 900;
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        /* Linki po prawej */
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 10px 15px;
+            border: 2px solid #00bcd4;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #00bcd4;
+            color: #000000;
+        }
+
+        main {
+            padding: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{{ path('app_home_page') }}" class="logo">FeedbackCenter</a>
+
+        <div class="nav-links">
+            {% if app.user %}
+                <span style="margin-right: 15px;">Hello, {{ app.user.nickname }}</span>
+                <a href="{{ path('app_logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Log in</a>
+                <a href="{{ path('app_register') }}">Sign up</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main>
+        <h1>Welcome to Feedback Center</h1>
+        <p>This is the homepage.</p>
+    </main>
+</body>
+</html>
