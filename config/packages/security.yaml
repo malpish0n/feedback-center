@@ -13,27 +13,31 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            lazy: true
+        api:
+            pattern: ^/api
+            stateless: true
             provider: app_user_provider
-            stateless: false
-            json_login:
-                check_path: /api/login_check
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
+
+        main:
+            pattern: ^/
+            provider: app_user_provider
             form_login:
                 login_path: app_login
                 check_path: app_login
-                enable_csrf: true
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_home_page
+            entry_point: form_login
 
     access_control:
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
-        - { path: ^/api,             roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+    - { path: ^/login,           roles: PUBLIC_ACCESS }
+    - { path: ^/logout,          roles: PUBLIC_ACCESS }
+    - { path: ^/register,        roles: PUBLIC_ACCESS }
+    - { path: ^/,                roles: PUBLIC_ACCESS }
+
+
 
 # konfiguracja do testów...
 when@test:
