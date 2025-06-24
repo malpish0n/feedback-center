@@ -19,6 +19,9 @@
             align-items: center;
         }
 
+        
+
+
         .logo {
             color: #00bcd4;
             font-weight: 900;
@@ -91,8 +94,22 @@
         </div>
     </header>
 
-    <main>
+    
 
-    </main>
+   <main style="padding: 40px;">
+    <h2 style="color: #00bcd4;">Latest Posts</h2>
+
+    {% if posts is empty %}
+        <p>No posts yet.</p>
+    {% else %}
+        {% for post in posts %}
+            <div style="border: 1px solid #00bcd4; padding: 20px; margin-bottom: 20px; background-color: #1f1f1f; border-radius: 8px;">
+                <h3 style="margin: 0; color: #00bcd4;">{{ post.title }}</h3>
+                <p style="margin-top: 10px;">{{ post.description }}</p>
+                <small style="color: #aaa;">Type: {{ post.type }} | Tags: {{ post.tags }}</small>
+            </div>
+        {% endfor %}
+    {% endif %}
+</main>
 </body>
 </html>
