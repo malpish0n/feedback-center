@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Homepage</title>
     <style>
         body {
@@ -15,25 +15,31 @@
             background-color: #1a1a1a;
             padding: 20px;
             display: flex;
-            justify-content: space-between; /* logo z lewej, linki z prawej */
+            justify-content: space-between; /* logo po lewej, reszta po prawej */
             align-items: center;
         }
 
-        /* Logo po lewej */
+        
+
+
         .logo {
-            color: #00bcd4; /* cyan */
+            color: #00bcd4;
             font-weight: 900;
             font-size: 28px;
             cursor: pointer;
-            user-select: none;
             text-decoration: none;
+            user-select: none;
         }
 
         .logo:hover {
             opacity: 0.8;
         }
 
-        /* Linki po prawej */
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-links a {
             color: #ffffff;
             text-decoration: none;
@@ -50,10 +56,26 @@
             color: #000000;
         }
 
-        main {
-            padding: 40px;
-            text-align: center;
+        .add-post-button {
+            font-size: 24px;
+            color: #00bcd4;
+            cursor: pointer;
+            user-select: none;
+            border: 2px solid #00bcd4;
+            border-radius: 5px;
+            width: 16px;       /* szerokość kwadratu */
+            height: 16px;      /* wysokość kwadratu */
+            line-height: 16px; /* wyśrodkowanie pionowe */
+            margin-right: 20px;
+            text-align: center; /* wyśrodkowanie poziome */
+            display: inline-block;
+            text-decoration: none;
         }
+
+        .add-post-button:hover {
+            background-color: #00bcd4;
+            color: #000000;
+}
     </style>
 </head>
 <body>
@@ -62,18 +84,32 @@
 
         <div class="nav-links">
             {% if app.user %}
-                <span style="margin-right: 15px;">Hello, {{ app.user.nickname }}</span>
+                <a href="{{ path('post_add') }}" class="add-post-button">+</a>
+                <span style="color: #fff; margin-right: 15px;">Hello, {{ app.user.nickname }}</span>
                 <a href="{{ path('app_logout') }}">Logout</a>
             {% else %}
-                <a href="{{ path('app_login') }}">Log in</a>
-                <a href="{{ path('app_register') }}">Sign up</a>
+                <a href="{{ path('app_login') }}">Log In</a>
+                <a href="{{ path('app_register') }}">Sign Up</a>
             {% endif %}
         </div>
     </header>
 
-    <main>
-        <h1>Welcome to Feedback Center</h1>
-        <p>This is the homepage.</p>
-    </main>
+    
+
+   <main style="padding: 40px;">
+    <h2 style="color: #00bcd4;">Latest Posts</h2>
+
+    {% if posts is empty %}
+        <p>No posts yet.</p>
+    {% else %}
+        {% for post in posts %}
+            <div style="border: 1px solid #00bcd4; padding: 20px; margin-bottom: 20px; background-color: #1f1f1f; border-radius: 8px;">
+                <h3 style="margin: 0; color: #00bcd4;">{{ post.title }}</h3>
+                <p style="margin-top: 10px;">{{ post.description }}</p>
+                <small style="color: #aaa;">Type: {{ post.type }} | Tags: {{ post.tags }}</small>
+            </div>
+        {% endfor %}
+    {% endif %}
+</main>
 </body>
 </html>

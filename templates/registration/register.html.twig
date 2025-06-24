@@ -3,6 +3,13 @@
 {% block title %}Register{% endblock %}
 
 {% block stylesheets %}
+
+<header style="position: absolute; top: 20px; left: 20px;">
+  <a href="{{ path('app_home_page') }}" style="color: #00bcd4; font-size: 24px; font-weight: bold; text-decoration: none;">
+    FeedbackCenter
+  </a>
+</header>
+
 <style>
   body {
     background-color: #171717;
@@ -66,5 +73,14 @@
     {{ form_row(registrationForm.plainPassword) }}
 
     <button type="submit">Register</button>
+    <p style="margin-top: 15px; text-align: center; color: #ccc;">
+    Already have an account?
+    <a href="{{ path('app_login') }}" style="color: #00bcd4; text-decoration: underline;">
+      Log in
+    </a>
+  </p>
   {{ form_end(registrationForm) }}
+
+
 {% endblock %}
+

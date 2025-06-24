@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+
+<header style="position: absolute; top: 20px; left: 20px;">
+  <a href="{{ path('app_home_page') }}" style="color: #00bcd4; font-size: 24px; font-weight: bold; text-decoration: none;">
+    FeedbackCenter
+  </a>
+</header>
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -85,6 +92,14 @@
 
             <button type="submit">Log in</button>
         </form>
+
+        <p style="margin-top: 20px; text-align: center; color: #ccc;">
+            Don't have an account?
+            <a href="{{ path('app_register') }}" style="color: #00bcd4; text-decoration: underline;">
+            Sign up
+            </a>
+        </p>
+
     </div>
 </body>
 </html>
