@@ -106,7 +106,17 @@ Authorization: Bearer <your_token>
 
     Include token in Authorization header for protected routes
 
+## Postman Collection
 
+You can import the Postman collection located at `FeedbackCenter/docs/postman/` to test the API easily.
+
+Steps to import in Postman:
+
+1. Open Postman.
+2. Click **Import** in the top-left corner.
+3. Select **File** tab.
+4. Choose the `FeedbackCenter API.postman_collection.json` file.
+5. Click **Import**.
 
 
 
