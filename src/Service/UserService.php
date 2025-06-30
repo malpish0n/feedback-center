@@ -23,6 +23,7 @@ class UserService
 
         $user = new User();
         $user->setEmail($data['email']);
+        $user->setNickname($data['nickname']);
         $user->setPassword(
             $this->passwordHasher->hashPassword($user, $data['password'])
         );

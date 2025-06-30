@@ -46,7 +46,7 @@ class UserController extends AbstractController
     {
     $data = json_decode($request->getContent(), true);
 
-    if (!isset($data['email'], $data['password'])) {
+    if (!isset($data['email'], $data['password'], $data['nickname'])) {
         return new JsonResponse(['error' => 'Missing fields'], 400);
     }
 
@@ -57,7 +57,7 @@ class UserController extends AbstractController
     }
 
     return new JsonResponse(['status' => 'User created'], 201);
-    }
+    }   
 
     #[Route('/users/{id}', name: 'update_user', methods: ['PUT'])]
     public function updateUser(int $id,
@@ -104,7 +104,29 @@ class UserController extends AbstractController
         $em->remove($user);
         $em->flush();
     
-        return new JsonResponse(['status' => 'User deleted'], 200); // <-- TO BYŁO WYMAGANE
+        return new JsonResponse(['status' => 'User deleted'], 200);
+    }
+
+    #[Route('/api/login', name: 'api_login', methods: ['POST'])]
+    public function login(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['email'], $data['password'])) {
+            return new JsonResponse(['error' => 'Missing email or password'], 400);
+        }
+
+        $user = $userRepository->findOneBy(['email' => $data['email']]);
+        if (!$user) {
+            return new JsonResponse(['error' => 'Invalid credentials'], 401);
+        }
+
+        if (!$passwordHasher->isPasswordValid($user, $data['password'])) {
+            return new JsonResponse(['error' => 'Invalid credentials'], 401);
+        }
+
+        // Tu powinieneś wygenerować token JWT lub inny sposób autoryzacji
+        // Na przykład zwrócimy prosty komunikat dla demo:
+        return new JsonResponse(['status' => 'Logged in successfully'], 200);
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -78,4 +79,19 @@ class Post
 
         return $this;
     }
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+        private ?User $author = null;
+
+        public function getAuthor(): ?User
+        {
+            return $this->author;
+        }
+
+        public function setAuthor(User $author): static
+        {
+            $this->author = $author;
+            return $this;
+        }
+
 }
