@@ -12,8 +12,6 @@ Technologies used:
 
     LexikJWTAuthenticationBundle
 
-    Docker
-
     Postman (or any API client) for testing
 
 Features:
