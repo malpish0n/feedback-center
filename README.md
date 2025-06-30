@@ -1,6 +1,6 @@
 # FeedbackCenter API
 
-Authors:
+### Authors:
 
 Arkadiusz Kasztelan
 
