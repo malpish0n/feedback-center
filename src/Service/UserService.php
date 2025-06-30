@@ -16,20 +16,18 @@ class UserService
     ) {}
 
     public function createUser(array $data): User
-    {
-        if ($this->userRepository->userExists($data['email'])) {
-            throw new \RuntimeException('User already exists');
-        }
+{
+    $user = new User();
+    $user->setEmail($data['email']);
+    $user->setNickname($data['nickname']);
+    $user->setRoles(['ROLE_USER']);
+    $hashedPassword = $this->passwordHasher->hashPassword($user, $data['password']);
+    $user->setPassword($hashedPassword);
 
-        $user = new User();
-        $user->setEmail($data['email']);
-        $user->setPassword(
-            $this->passwordHasher->hashPassword($user, $data['password'])
-        );
+    $this->entityManager->persist($user);
+    $this->entityManager->flush();
 
-        $this->em->persist($user);
-        $this->em->flush();
-
-        return $user;
+    return $user;
     }
+
 }

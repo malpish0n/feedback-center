@@ -23,6 +23,7 @@
         "symfony/http-client": "7.2.*",
         "symfony/runtime": "7.2.*",
         "symfony/security-bundle": "7.2.*",
+        "symfony/security-core": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
         "symfony/uid": "7.2.*",
         "symfony/validator": "7.2.*",
@@ -82,8 +83,10 @@
         }
     },
     "require-dev": {
+        "behat/behat": "^3.22",
+        "behat/gherkin": "^4.14",
         "doctrine/doctrine-fixtures-bundle": "^4.1",
-        "phpunit/phpunit": "^12.1",
+        "phpunit/phpunit": "^12.2",
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",
         "symfony/maker-bundle": "^1.63",
