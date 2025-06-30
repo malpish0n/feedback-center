@@ -102,7 +102,7 @@ Authorization: Bearer <your_token>
 
     ROLE_USER — default user role
 
-    ROLE_ADMIN — full privileges (if implemented)
+    ROLE_ADMIN — full privileges
 
 ## Testing with Postman or Similar
 
