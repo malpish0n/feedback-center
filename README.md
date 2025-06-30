@@ -1,4 +1,4 @@
-FeedbackCenter API
+# FeedbackCenter API
 
 Technologies used:
 
@@ -116,6 +116,8 @@ Steps to import in Postman:
 4. Choose the `FeedbackCenter API.postman_collection.json` file.
 5. Click **Import**.
 
-
+Authors:
+Arkadiusz Kasztelan
+Wojciech Jakubiak
 
 
