@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Entity\Group;
+use App\Entity\UserMeta;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -46,6 +47,18 @@ class AppFixtures extends Fixture
 
         $manager->persist($admin);
         $manager->persist($user);
+
+        $adminMeta = new UserMeta();
+        $adminMeta->setAppUser($admin);
+        $adminMeta->setKey('dashboard_theme');
+        $adminMeta->setValue('dark');
+        $manager->persist($adminMeta);
+
+        $userMeta = new UserMeta();
+        $userMeta->setAppUser($user);
+        $userMeta->setKey('notifications');
+        $userMeta->setValue('enabled');
+        $manager->persist($userMeta);
 
         $manager->flush();
     }

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
-#[ORM\Table(name: 'group_table')]  // Zmieniamy nazwę, bo "group" jest słowem zarezerwowanym w SQL
+#[ORM\Table(name: 'groups')]
 class Group
 {
     #[ORM\Id]

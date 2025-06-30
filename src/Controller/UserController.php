@@ -2,131 +2,134 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Service\UserService;
-use App\Formatter\ApiResponseFormatter;
 use App\Repository\UserRepository;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
-
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserController extends AbstractController
 {
-    #[Route('/api/users/show', name: 'app_user', methods: ['GET'])]
-    public function showUser(ApiResponseFormatter $formatter): JsonResponse
-    {
-        $currentUser = $this->getUser();
-
-        return $formatter
-            ->setData([
-                'user_id' => $currentUser->getId(),
-                'user_email' => $currentUser->getEmail(),
-            ])
-            ->getResponse();
-    }
-
-    #[Route('/users', name: 'app_user')]
-    public function index(): Response
-    {
-
-    }
-
-    #[Route('/users/{id}', name: 'app_user_show', requirements: ['id' => '\d+'])]
-    public function show(int $id)
-    {
-
-    }
-
-    #[Route('/users/create', name: 'create_user', methods: ['POST'])]
-    public function createUser(Request $request, UserService $userService): JsonResponse
-    {
-    $data = json_decode($request->getContent(), true);
-
-    if (!isset($data['email'], $data['password'], $data['nickname'])) {
-        return new JsonResponse(['error' => 'Missing fields'], 400);
-    }
-
-    try {
-        $userService->createUser($data);
-    } catch (\RuntimeException $e) {
-        return new JsonResponse(['error' => $e->getMessage()], 400);
-    }
-
-    return new JsonResponse(['status' => 'User created'], 201);
-    }   
-
-    #[Route('/users/{id}', name: 'update_user', methods: ['PUT'])]
-    public function updateUser(int $id,
-    Request $request,
-    UserRepository $userRepository,
-    EntityManagerInterface $em,
-    UserPasswordHasherInterface $passwordHasher
-    ): JsonResponse {
-    $user = $userRepository->find($id);
-    dd($user);
-    
-    if (!$user) {
-        return new JsonResponse(['error' => 'User not found'], 404);
-    }
-
-    $data = json_decode($request->getContent(), true);
-
-    if (isset($data['email'])) {
-        $user->setEmail($data['email']);
-    }
-
-    if (isset($data['password'])) {
-        $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
-        $user->setPassword($hashedPassword);
-    }
-
-    $em->flush();
-    dd('reached');
-    return new JsonResponse(['status' => 'User updated'], 200);
-
-    }
-
-
-
-    #[Route('/users/{id}', name: 'delete_user', methods: ['DELETE'])]
-    public function deleteUser(int $id, UserRepository $userRepository, EntityManagerInterface $em): JsonResponse
-    {
-        $user = $userRepository->find($id);
-    
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not found'], 404);
-        }
-    
-        $em->remove($user);
-        $em->flush();
-    
-        return new JsonResponse(['status' => 'User deleted'], 200);
-    }
-
-    #[Route('/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    // Rejestracja
+    #[Route('/api/register', name: 'api_register', methods: ['POST'])]
+    public function register(Request $request, UserService $userService): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
+        if (!isset($data['email'], $data['password'], $data['nickname'])) {
+            return $this->json(['error' => 'Missing required fields'], 400);
+        }
+
+        try {
+            $userService->createUser($data); // hashowanie i zapisywanie
+        } catch (\Exception $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
+        }
+
+        return $this->json(['status' => 'User registered'], 201);
+    }
+
+    // Logowanie - zwraca JWT
+    #[Route('/api/login', name: 'api_login', methods: ['POST'])]
+    public function login(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $passwordHasher,
+        JWTTokenManagerInterface $jwtManager
+    ): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+
         if (!isset($data['email'], $data['password'])) {
-            return new JsonResponse(['error' => 'Missing email or password'], 400);
+            return $this->json(['error' => 'Missing email or password'], 400);
         }
 
         $user = $userRepository->findOneBy(['email' => $data['email']]);
         if (!$user) {
-            return new JsonResponse(['error' => 'Invalid credentials'], 401);
+            return $this->json(['error' => 'Invalid credentials'], 401);
         }
 
         if (!$passwordHasher->isPasswordValid($user, $data['password'])) {
-            return new JsonResponse(['error' => 'Invalid credentials'], 401);
+            return $this->json(['error' => 'Invalid credentials'], 401);
         }
 
-        // Tu powinieneś wygenerować token JWT lub inny sposób autoryzacji
-        // Na przykład zwrócimy prosty komunikat dla demo:
-        return new JsonResponse(['status' => 'Logged in successfully'], 200);
+        $token = $jwtManager->create($user);
+
+        return $this->json(['token' => $token], 200);
     }
 
+    // Profil aktualnie zalogowanego
+    #[Route('/api/profile', name: 'api_profile', methods: ['GET'])]
+    public function profile(): JsonResponse
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw new AccessDeniedException('You must be logged in');
+        }
+
+        return $this->json([
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'nickname' => $user->getNickname(),
+        ]);
+    }
+
+    // Wylogowanie (w JWT to stateless - klient usuwa token)
+    #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
+    public function logout(): JsonResponse
+    {
+        return $this->json(['status' => 'Logged out'], 200);
+    }
+
+    // Usuwanie konta
+    #[Route('/api/users/delete', name: 'api_user_delete', methods: ['DELETE'])]
+    public function delete(EntityManagerInterface $em): JsonResponse
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw new AccessDeniedException('You must be logged in');
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        return $this->json(['status' => 'User deleted'], 200);
+    }
+    
+    // Edycja użytkownika (email, password, nickname)
+    #[Route('/api/users/edit', name: 'user_edit', methods: ['PUT'])]
+    public function editUser(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            return $this->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        if (isset($data['email'])) {
+            $user->setEmail($data['email']);
+        }
+
+        if (isset($data['password'])) {
+            $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
+            $user->setPassword($hashedPassword);
+        }
+
+        if (isset($data['nickname'])) {
+            $user->setNickname($data['nickname']);
+        }
+
+        $em->flush();
+
+        return $this->json(['status' => 'User updated']);
+    }
 }

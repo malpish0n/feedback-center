@@ -9,12 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Group;
+use App\Entity\UserMeta;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,9 +38,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinTable(name: 'user_group')]
     private Collection $groups;
 
+    /**
+     * @var Collection<int, UserMeta>
+     */
+    #[ORM\OneToMany(targetEntity: UserMeta::class, mappedBy: 'appUser')]
+    private Collection $userMetas;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->userMetas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,5 +136,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
+    }
+
+    /**
+     * @return Collection<int, UserMeta>
+     */
+    public function getUserMetas(): Collection
+    {
+        return $this->userMetas;
+    }
+
+    public function addUserMeta(UserMeta $userMeta): static
+    {
+        if (!$this->userMetas->contains($userMeta)) {
+            $this->userMetas->add($userMeta);
+            $userMeta->setAppUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMeta(UserMeta $userMeta): static
+    {
+        if ($this->userMetas->removeElement($userMeta)) {
+            // set the owning side to null (unless already changed)
+            if ($userMeta->getAppUser() === $this) {
+                $userMeta->setAppUser(null);
+            }
+        }
+
+        return $this;
     }
 }
