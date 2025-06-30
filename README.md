@@ -127,5 +127,6 @@ Steps to import in Postman:
 4. Choose the `FeedbackCenter API.postman_collection.json` file.
 5. Click **Import**.
 
+
 Secrets and private keys have been removed for security reasons. The project works with appropriate keys and passphrases.
 
