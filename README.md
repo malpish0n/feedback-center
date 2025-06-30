@@ -1,5 +1,11 @@
 # FeedbackCenter API
 
+Authors:
+
+Arkadiusz Kasztelan
+
+Wojciech Jakubiak
+
 Technologies used:
 
     Docker
@@ -115,9 +121,5 @@ Steps to import in Postman:
 3. Select **File** tab.
 4. Choose the `FeedbackCenter API.postman_collection.json` file.
 5. Click **Import**.
-
-Authors:
-Arkadiusz Kasztelan
-Wojciech Jakubiak
 
 
