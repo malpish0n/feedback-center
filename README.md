@@ -86,6 +86,7 @@ php bin/console doctrine:fixtures:load
 | -------------- | ----------- | ----------------------- |
 | /api/register  | POST        | Register a new user     |
 | /api/login     | POST        | Login and get JWT token |
+| /api/logout    | POST        | Log out                 |
 
 
 ## Use the JWT token in the Authorization header for all protected endpoints:
