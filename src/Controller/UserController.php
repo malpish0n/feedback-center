@@ -80,7 +80,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    // Wylogowanie (w JWT to stateless - klient usuwa token)
+    // Wylogowanie
     #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
     public function logout(): JsonResponse
     {
@@ -103,7 +103,7 @@ class UserController extends AbstractController
         return $this->json(['status' => 'User deleted'], 200);
     }
     
-    // Edycja użytkownika (email, password, nickname)
+    // Edycja użytkownika
     #[Route('/api/users/edit', name: 'user_edit', methods: ['PUT'])]
     public function editUser(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {

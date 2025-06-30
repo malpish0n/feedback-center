@@ -161,7 +161,6 @@ class EntityContext implements Context
     /** @When I set User roles to :roles */
     public function iSetUserRolesTo(string $roles): void
     {
-        // Rozbij po przecinku, usuń spacje, na koniec dodaj "ROLE_USER", jeśli nie ma
         $rolesArray = array_map('trim', explode(',', $roles));
         if (!in_array('ROLE_USER', $rolesArray, true)) {
             $rolesArray[] = 'ROLE_USER';

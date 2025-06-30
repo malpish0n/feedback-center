@@ -22,7 +22,6 @@ class PostVoter extends Voter
         $user = $token->getUser();
 
         if (!$user instanceof UserInterface) {
-            // the user must be logged in; deny access otherwise
             return false;
         }
 
@@ -32,7 +31,6 @@ class PostVoter extends Voter
         switch ($attribute) {
             case self::POST_EDIT:
             case self::POST_DELETE:
-                // example: only the author can edit/delete their post
                 return $post->getAuthor()->getId() === $user->getId();
         }
 

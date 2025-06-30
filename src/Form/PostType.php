@@ -22,7 +22,7 @@ class PostType extends AbstractType
                 'Proposal' => 'proposal',
                 'Feedback' => 'feedback',
             ],
-            'placeholder' => 'Choose a type', // opcjonalnie
+            'placeholder' => 'Choose a type',
         ])
         ->add('tags');
 }
