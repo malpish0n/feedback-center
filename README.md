@@ -54,7 +54,7 @@ docker exec -it feedbackcenter-php-1 bash
 # 4. Install PHP dependencies
 composer install
 
-JWT Key Generation
+## JWT Key Generation
 
 If keys are not generated yet, run:
 
