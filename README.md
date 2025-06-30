@@ -73,14 +73,32 @@ php bin/console doctrine:fixtures:load
 
 Auth endpoints:
 
-Method	    Endpoint	      Description
-POST	    /api/register	  Register a new user
-POST	    /api/login	      Log in and receive a JWT token
-POST        /api/logout       Log out
+| Method | Endpoint      | Description             |
+| ------ | ------------- | ----------------------- |
+| POST   | /api/register | Register a new user     |
+| POST   | /api/login    | Login and get JWT token |
+
 
 Use the JWT token in the Authorization header for all protected endpoints:
 
 Authorization: Bearer <your_token>
+
+| Endpoint        | Method | Access        | Description              |
+| --------------- | ------ | ------------- | ------------------------ |
+| /api/posts      | GET    | Public        | Get all posts            |
+| /api/posts/{id} | GET    | Public        | Get single post          |
+| /api/posts      | POST   | Authenticated | Add new post             |
+| /api/posts/{id} | PUT    | Post Author   | Edit post                |
+| /api/posts/{id} | DELETE | Post Author   | Remove post              |
+| /api/profile    | GET    | Authenticated | Get current user profile |
+| /api/users/edit | PUT    | Authenticated | Edit current user        |
+
+Roles and Permissions
+
+    ROLE_USER — default user role
+
+    ROLE_ADMIN — full privileges (if implemented)
+
 
 
 
