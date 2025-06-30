@@ -63,13 +63,17 @@ composer install
 If keys are not generated yet, run:
 
 mkdir -p config/jwt
+
 openssl genrsa -out config/jwt/private.pem -aes256 4096
+
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 
 ## Then, configure .env.local:
 
 JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
+
 JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
+
 JWT_PASSPHRASE= <your pasphrase here>
 
 ## Fixtures loading
