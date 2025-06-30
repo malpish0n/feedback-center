@@ -99,6 +99,12 @@ Roles and Permissions
 
     ROLE_ADMIN — full privileges (if implemented)
 
+Testing with Postman or Similar
+
+    Log in via /api/login to get your JWT token
+
+    Include token in Authorization header for protected routes
+
 
 
 
