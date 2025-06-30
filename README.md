@@ -93,12 +93,9 @@ Authorization: Bearer <your_token>
 | /api/posts/{id} | DELETE | Post Author   | Remove post              |
 | /api/profile    | GET    | Authenticated | Get current user profile |
 | /api/users/edit | PUT    | Authenticated | Edit current user        |
-
-| Endpoint       | Method      | Description             |
-| -------------- | ----------- | ----------------------- |
-| /api/register  | POST        | Register a new user     |
-| /api/login     | POST        | Login and get JWT token |
-| /api/logout    | POST        | Log out                 |
+| /api/register   | POST   | Public        | Register a new user      |
+| /api/login      | POST   | Public        | Login and get JWT token  |
+| /api/logout     | POST   | Authenticated | Log out                  |
 
 ## Roles and Permissions
 
