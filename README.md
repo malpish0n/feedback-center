@@ -58,6 +58,11 @@ docker exec -it feedbackcenter-php-1 bash
 ## 4. Install PHP dependencies
 composer install
 
+## 5. Run database migrations
+
+php bin/console make:migrations
+php bin/console doctrine:migrations:migrate
+
 ## JWT Key Generation
 
 If keys are not generated yet, run:
