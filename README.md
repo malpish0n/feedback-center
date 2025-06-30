@@ -61,6 +61,7 @@ composer install
 ## 5. Run database migrations
 
 php bin/console make:migrations
+
 php bin/console doctrine:migrations:migrate
 
 ## JWT Key Generation
