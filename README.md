@@ -80,7 +80,7 @@ php bin/console doctrine:fixtures:load
 | /api/login     | POST        | Login and get JWT token |
 
 
-##Use the JWT token in the Authorization header for all protected endpoints:
+## Use the JWT token in the Authorization header for all protected endpoints:
 
 Authorization: Bearer <your_token>
 
