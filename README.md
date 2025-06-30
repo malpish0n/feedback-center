@@ -42,6 +42,7 @@ Installation and Setup
 
 # 1. Clone the repository
 git clone https://github.com/malpish0n/feedback-center-api.git
+
 cd FeedbackCenter
 
 # 2. Start Docker containers (build and run)
