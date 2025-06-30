@@ -3,7 +3,6 @@
 Authors:
 
 Arkadiusz Kasztelan
-
 Wojciech Jakubiak
 
 Technologies used:
