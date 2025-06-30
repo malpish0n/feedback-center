@@ -6,7 +6,7 @@ Arkadiusz Kasztelan
 
 Wojciech Jakubiak
 
-Technologies used:
+## Technologies used:
 
     Docker
     
@@ -20,7 +20,7 @@ Technologies used:
 
     Postman (or any API client) for testing
 
-Features:
+## Features:
 
     User registration and login
 
@@ -32,7 +32,7 @@ Features:
 
     Consistent JSON responses formatted by ApiResponseFormatter
 
-Requirements
+## Requirements
 
     PHP 8.1 or higher
 
@@ -42,7 +42,7 @@ Requirements
     
     Docker
 
-Installation and Setup
+# Installation and Setup
 
 # 1. Clone the repository
 git clone https://github.com/malpish0n/feedback-center-api.git
