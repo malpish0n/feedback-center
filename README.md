@@ -28,7 +28,7 @@ Features:
 
     Consistent JSON responses formatted by ApiResponseFormatter
 
-📋 Requirements
+Requirements
 
     PHP 8.1 or higher
 
@@ -38,7 +38,7 @@ Features:
     
     Docker
 
-⚙️ Installation and Setup
+Installation and Setup
 
 # 1. Clone the repository
 git clone https://github.com/malpish0n/feedback-center-api.git
@@ -53,7 +53,7 @@ docker exec -it feedbackcenter-php-1 bash
 # 4. Install PHP dependencies
 composer install
 
-🔐 JWT Key Generation
+JWT Key Generation
 
 If keys are not generated yet, run:
 
@@ -67,7 +67,7 @@ JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
 JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
 JWT_PASSPHRASE= <your pasphrase here>
 
-🧪 Loading Fixtures
+Fixtures loading
 
 php bin/console doctrine:fixtures:load
 
