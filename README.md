@@ -44,18 +44,18 @@ Wojciech Jakubiak
 
 # Installation and Setup
 
-# 1. Clone the repository
+## 1. Clone the repository
 git clone https://github.com/malpish0n/feedback-center-api.git
 
 cd FeedbackCenter
 
-# 2. Start Docker containers (build and run)
+## 2. Start Docker containers (build and run)
 docker compose up -d --build
 
-# 3. Access the PHP container
+## 3. Access the PHP container
 docker exec -it feedbackcenter-php-1 bash
 
-# 4. Install PHP dependencies
+## 4. Install PHP dependencies
 composer install
 
 ## JWT Key Generation
