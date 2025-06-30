@@ -80,15 +80,6 @@ JWT_PASSPHRASE= (your passhprase goes here)
 
 php bin/console doctrine:fixtures:load
 
-## Auth endpoints:
-
-| Endpoint       | Method      | Description             |
-| -------------- | ----------- | ----------------------- |
-| /api/register  | POST        | Register a new user     |
-| /api/login     | POST        | Login and get JWT token |
-| /api/logout    | POST        | Log out                 |
-
-
 ## Use the JWT token in the Authorization header for all protected endpoints:
 
 Authorization: Bearer <your_token>
@@ -102,6 +93,12 @@ Authorization: Bearer <your_token>
 | /api/posts/{id} | DELETE | Post Author   | Remove post              |
 | /api/profile    | GET    | Authenticated | Get current user profile |
 | /api/users/edit | PUT    | Authenticated | Edit current user        |
+
+| Endpoint       | Method      | Description             |
+| -------------- | ----------- | ----------------------- |
+| /api/register  | POST        | Register a new user     |
+| /api/login     | POST        | Login and get JWT token |
+| /api/logout    | POST        | Log out                 |
 
 ## Roles and Permissions
 
