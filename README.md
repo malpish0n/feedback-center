@@ -62,17 +62,17 @@ mkdir -p config/jwt
 openssl genrsa -out config/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 
-Then, configure .env.local:
+## Then, configure .env.local:
 
 JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
 JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
 JWT_PASSPHRASE= <your pasphrase here>
 
-Fixtures loading
+## Fixtures loading
 
 php bin/console doctrine:fixtures:load
 
-Auth endpoints:
+## Auth endpoints:
 
 | Endpoint       | Method      | Description             |
 | -------------- | ----------- | ----------------------- |
@@ -80,7 +80,7 @@ Auth endpoints:
 | /api/login     | POST        | Login and get JWT token |
 
 
-Use the JWT token in the Authorization header for all protected endpoints:
+##Use the JWT token in the Authorization header for all protected endpoints:
 
 Authorization: Bearer <your_token>
 
@@ -94,13 +94,13 @@ Authorization: Bearer <your_token>
 | /api/profile    | GET    | Authenticated | Get current user profile |
 | /api/users/edit | PUT    | Authenticated | Edit current user        |
 
-Roles and Permissions
+## Roles and Permissions
 
     ROLE_USER — default user role
 
     ROLE_ADMIN — full privileges (if implemented)
 
-Testing with Postman or Similar
+## Testing with Postman or Similar
 
     Log in via /api/login to get your JWT token
 
